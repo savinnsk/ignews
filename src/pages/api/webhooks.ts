@@ -70,7 +70,7 @@ if(req.method === 'POST'){
 
                 const checkoutSession = event.data.object as Stripe.Checkout.Session
                 
-                await saveSubscription(  // saving in fauna
+                await saveSubscription(  
                     checkoutSession.subscription.toString(),
                     checkoutSession.customer.toString(),
                     true

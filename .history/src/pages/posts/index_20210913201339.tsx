@@ -1,6 +1,7 @@
 import styles from './styles.module.scss'
 import Head  from 'next/head'
 import { GetStaticProps } from 'next';
+import Link from 'next/link';
 import { getPrismicClient } from '../../services/prismic';
 import Prismic from '@prismicio/client'
 import { RichText } from 'prismic-dom'
@@ -30,12 +31,13 @@ export default function Post( { posts }: PostProps ) {
           <div className={styles.posts} >
 
              {posts.map(post => (
-              <a href="">
-                  <time>12 de março de 2021</time>
-                  <strong>Creating a Monorepo with Lerna & Yarn Workspaces</strong>
-                  <p>In this guide, you will learn how to create a Monorepo to manage multiple packages with a shared build, test, and release process.</p>
-              </a>
-        
+                 <Link href={`posts/preview/${post.slug}`} >
+                     <a key={post.slug} >
+                       <time>{post.updatedAt}</time>
+                        <strong>{post.title}</strong>
+                        <p>{post.excerpt}</p>
+                    </a>
+                </Link>
             ))}
           </div>  
         </main>
@@ -69,7 +71,7 @@ export const getStaticProps: GetStaticProps = async () => {
             })
         }
     }) 
-    console.log(JSON.stringify(response , null ,2))
+    //console.log(JSON.stringify(response , null ,2))
 
     return {
         props:{
